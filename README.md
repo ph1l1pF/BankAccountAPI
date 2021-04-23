@@ -27,7 +27,7 @@ Send a post request to ``http://localhost:80/AccountStatement/StartCollecting`` 
         "httpsEndpoint": "my_https_endpoint_to_bank", // Fin endpoint of bank
         "bankId": "someBankId" // arbitrary bankId chosen by you
     },
-    ...
+    // more objects...
 ]
 ```
 
