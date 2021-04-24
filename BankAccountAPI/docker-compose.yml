@@ -1,0 +1,5 @@
+services:
+    bankaccountapi:
+      build: .
+      ports:
+        - "80:80"

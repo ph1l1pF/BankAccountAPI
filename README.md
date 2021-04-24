@@ -7,8 +7,7 @@ You can retreive your statements within a date range specified in your request.
 
 1. Open ``BankAccountAPI/appsettings.json``and set ``ConnectionString`` to the database connection string of your MongoDB.
 2. Run ``cd BankAccountAPI``
-3. Run ``docker build -t bankaccountapi .``
-4. Run ``docker run -p 80:80 -t bankaccountapi``
+3. Run ``docker-compose up -d --force-recreate --build``
 
 ### Health Check
 
