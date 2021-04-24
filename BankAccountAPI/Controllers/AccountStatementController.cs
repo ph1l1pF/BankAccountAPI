@@ -22,6 +22,13 @@ namespace BankAccountAPI.Controllers
             return _statementService.getStatements(DateTime.Parse(startDate), DateTime.Parse(endDate), bankIds);
         }
 
+        [HttpGet]
+        [Route("HealthCheck")]
+        public string HealthCheck()
+        {
+            return "healthy";
+        }
+
         /*
             [
                 {

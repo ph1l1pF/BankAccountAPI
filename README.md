@@ -1,6 +1,6 @@
 # BankAccountAPI
 
-An API which is periodically downloading bank account statements from your different bank accounts and storing them in a Mongo DB.
+An ASP .Net Core API which is periodically downloading bank account statements from your different bank accounts and storing them in a Mongo DB.
 You can retreive your statements within a date range specified in your request.
 
 ## Build and start API (in Docker container)
@@ -9,6 +9,10 @@ You can retreive your statements within a date range specified in your request.
 2. Run ``cd BankAccountAPI``
 3. Run ``docker build -t bankaccountapi .``
 4. Run ``docker run -p 80:80 -t bankaccountapi``
+
+### Health Check
+
+Check if the API is running and is healthy by sending a get request to ``http://localhost:80/AccountStatement/HealthCheck``.
 
 ## Use API
 
@@ -38,9 +42,9 @@ Here you have one entry for each of your bank accounts. The ``bankId``is an arbi
 
 Send a get request to:
 
-```
+```url
 http://localhost:80/AccountStatement?startDate=2021-1-4&endDate=2021-4-3&bankIds=bankId1,bankId2
 ```
 
 where you specify your start and end date, respectively. The date format is ``yyyy-M-d``.
-Moreover, you specify the bank ids for which you want to retreive statements. Must correspond to the ``bankId`` values from above.
+Moreover, you specify the bank ids for which you want to retreive statements. Those must correspond to the ``bankId`` values from above.
