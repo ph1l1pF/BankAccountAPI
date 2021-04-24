@@ -11,6 +11,8 @@ namespace BankAccountAPI.Controllers
     {
         private readonly IStatementService _statementService;
         private readonly IStatementDownloadService _statementsDownloadService;
+
+        private static bool isCollecting = false;
         public AccountStatementController(IStatementService statementService, IStatementDownloadService statementsDownloadService)
         {
             _statementService = statementService;
@@ -18,7 +20,8 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Statement> Get(string startDate, string endDate, string bankIds){
+        public IEnumerable<Statement> Get(string startDate, string endDate, string bankIds)
+        {
             return _statementService.getStatements(DateTime.Parse(startDate), DateTime.Parse(endDate), bankIds);
         }
 
@@ -51,9 +54,23 @@ namespace BankAccountAPI.Controllers
         */
         [HttpPost]
         [Route("StartCollecting")]
-        public void StartCollecting([FromBody] BankParams[] bankParams) 
+        public string StartCollecting([FromBody] BankParams[] bankParams)
         {
-            _statementsDownloadService.StartDownloadTimer(bankParams);
+            if (!isCollecting)
+            {
+                isCollecting = true;
+                _statementsDownloadService.StartDownloadTimer(bankParams);
+                return "Started collecting.";
+            }
+            return "Already collecting.";
         }
+
+        [HttpGet]
+        [Route("IsCollecting")]
+        public bool IsCollecting()
+        {
+            return isCollecting;
+        }
+
     }
 }
