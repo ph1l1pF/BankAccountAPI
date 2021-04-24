@@ -5,9 +5,10 @@ You can retreive your statements within a date range specified in your request.
 
 ## Build and start API (in Docker container)
 
-1. Run ``cd BankAccountAPI``
-2. Run ``docker build -t bankaccountapi .``
-3. Run ``docker run -p 80:80 -t bankaccountapi``
+1. Open ``BankAccountAPI/appsettings.json``and set ``ConnectionString`` to the database connection string of your MongoDB.
+2. Run ``cd BankAccountAPI``
+3. Run ``docker build -t bankaccountapi .``
+4. Run ``docker run -p 80:80 -t bankaccountapi``
 
 ## Use API
 
@@ -43,4 +44,3 @@ http://localhost:80/AccountStatement?startDate=2021-1-4&endDate=2021-4-3&bankIds
 
 where you specify your start and end date, respectively. The date format is ``yyyy-M-d``.
 Moreover, you specify the bank ids for which you want to retreive statements. Must correspond to the ``bankId`` values from above.
-
