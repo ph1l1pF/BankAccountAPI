@@ -32,26 +32,7 @@ namespace BankAccountAPI.Controllers
             return "healthy";
         }
 
-        /*
-            [
-                {
-                    "bankNumber": "",
-                    "accountNumber": "",
-                    "userId": "",
-                    "pin": "",
-                    "httpsEndpoint": "https://fints.comdirect.de/fints",
-                    "bankId": "Comdirect"
-                },
-                {
-                    "bankNumber": "",
-                    "accountNumber": "",
-                    "userId": "",
-                    "pin": "",
-                    "httpsEndpoint": "https://banking-wl1.s-fints-pt-wl.de/fints30",
-                    "bankId": "Sparkasse"
-                }
-            ]          
-        */
+        
         [HttpPost]
         [Route("StartCollecting")]
         public string StartCollecting([FromBody] BankParams[] bankParams)
