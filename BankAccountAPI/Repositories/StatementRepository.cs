@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
@@ -17,12 +18,21 @@ namespace BankAccountAPI.Services
         }
         public IEnumerable<Statement> GetStatements()
         {
-            return _statements.Find(s => true).ToList();
+            try {
+                return _statements.Find(s => true).ToList();
+            } catch(MongoException e) {
+                Console.WriteLine(e.Message);
+                return new List<Statement>();
+            }
         }
 
         public void StoreStatements(IEnumerable<Statement> statements)
         {
-            _statements.InsertMany(statements);
+            try {
+                _statements.InsertMany(statements);
+            } catch(MongoException e) {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
