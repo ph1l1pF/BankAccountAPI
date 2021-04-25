@@ -5,6 +5,6 @@ namespace BankAccountAPI.Services
 {
     public interface IStatementService
     {
-         IEnumerable<Statement> getStatements(DateTime startDate, DateTime endDate, string bankIds);
+         IEnumerable<Statement> GetStatements(DateTime startDate, DateTime endDate, string bankIds);
     }
 }

@@ -22,7 +22,7 @@ namespace BankAccountAPI.Controllers
         [HttpGet]
         public IEnumerable<Statement> Get(string startDate, string endDate, string bankIds)
         {
-            return _statementService.getStatements(DateTime.Parse(startDate), DateTime.Parse(endDate), bankIds);
+            return _statementService.GetStatements(DateTime.Parse(startDate), DateTime.Parse(endDate), bankIds);
         }
 
         [HttpGet]

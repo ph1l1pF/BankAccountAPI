@@ -6,14 +6,6 @@ using BankAccountAPI.Services;
 
 namespace BankAccountAPI
 {
-    public enum BankId
-    {
-        [Description("Comdirect")]
-        Comdirect,
-
-        [Description("Sparkasse")]
-        Sparkasse
-    }
 
     public class BankParams
     {
@@ -44,20 +36,9 @@ namespace BankAccountAPI
             _statementRepository = statementRepository;
         }
 
-        public IEnumerable<Statement> getStatements(DateTime startDate, DateTime endDate, string bankIds)
+        public IEnumerable<Statement> GetStatements(DateTime startDate, DateTime endDate, string bankIds)
         {
-            var statements = new List<Statement>();
-            var bankIdsList = new List<string>();
-            foreach (var bank in bankIds.Split(","))
-            {
-                if (Enum.TryParse(typeof(BankId), bank, true, out var bankId)) {
-                    //statements.AddRange(getStatementsForOneBank(startDate, endDate, (BankId)bankId));
-                    bankIdsList.Add(bank);
-                }
-            }
-
-            //_statementRepository.StoreStatements(statements.OrderBy(s => s.Date));
-
+            var bankIdsList = bankIds.Split(",");
             var allStatements = _statementRepository.GetStatements();
             var desiredStatements = allStatements.Where(s => startDate <= s.Date && s.Date<=endDate && bankIdsList.Contains(s.BankId));
             return desiredStatements.OrderBy(s => s.Date);
