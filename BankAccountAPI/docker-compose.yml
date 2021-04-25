@@ -1,5 +1,6 @@
 services:
-    bankaccountapi:
-      build: .
-      ports:
-        - "80:80"
+  bankaccountapi:
+    restart: on-failure
+    build: .
+    ports:
+      - "80:80"
