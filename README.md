@@ -11,7 +11,7 @@ You can retreive your statements within a date range specified in your request.
 
 ### Health Check
 
-Check if the API is running and is healthy by sending a get request to ``http://localhost:80/AccountStatement/HealthCheck``.
+Check if the API is running and is healthy by sending a get request to ``http://localhost:81/AccountStatement/HealthCheck``.
 
 ## Use API
 
@@ -19,7 +19,7 @@ Check if the API is running and is healthy by sending a get request to ``http://
 
 The API has to be started once in order to start the periodic downloading process and get your bank credentials (the credentials will not be stored persistently).
 
-Send a post request to ``http://localhost:80/AccountStatement/StartCollecting`` with the following payload:
+Send a post request to ``http://localhost:81/AccountStatement/StartCollecting`` with the following payload:
 
 ```json
 [
@@ -42,7 +42,7 @@ Here you have one entry for each of your bank accounts. The ``bankId``is an arbi
 Send a get request to:
 
 ```url
-http://localhost:80/AccountStatement?startDate=2021-1-4&endDate=2021-4-3&bankIds=bankId1,bankId2
+http://localhost:81/AccountStatement?startDate=2021-1-4&endDate=2021-4-3&bankIds=bankId1,bankId2
 ```
 
 where you specify your start and end date, respectively. The date format is ``yyyy-M-d``.
