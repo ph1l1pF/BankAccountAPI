@@ -5,4 +5,4 @@ services:
     restart: on-failure
     build: .
     ports:
-      - "80:81"
+      - "81:80"
