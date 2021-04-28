@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace BankAccountAPI.Services
@@ -9,19 +10,21 @@ namespace BankAccountAPI.Services
     {
 
         private readonly IMongoCollection<Statement> _statements;
+        private readonly ILogger<StatementRepository> _logger;
 
-        public StatementRepository(IStatementsDatabaseSettings statementsDatabaseSettings)
+        public StatementRepository(IStatementsDatabaseSettings statementsDatabaseSettings, ILogger<StatementRepository> logger)
         {
             var client = new MongoClient(statementsDatabaseSettings.ConnectionString);
             var database = client.GetDatabase(statementsDatabaseSettings.DatabaseName);
             _statements = database.GetCollection<Statement>(statementsDatabaseSettings.StatementsCollectionName);
+            _logger = logger;
         }
         public IEnumerable<Statement> GetStatements()
         {
             try {
                 return _statements.Find(s => true).ToList();
             } catch(MongoException e) {
-                Console.WriteLine(e.Message);
+                _logger.LogError(e, e.Message);
                 return new List<Statement>();
             }
         }
@@ -31,7 +34,7 @@ namespace BankAccountAPI.Services
             try {
                 _statements.InsertMany(statements);
             } catch(MongoException e) {
-                Console.WriteLine(e.Message);
+                _logger.LogError(e, e.Message);
             }
         }
     }

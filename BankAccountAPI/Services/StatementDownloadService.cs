@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 
 namespace BankAccountAPI.Services
 {
@@ -17,10 +18,14 @@ namespace BankAccountAPI.Services
 
         private readonly IStatementRepository _statementRepository;
 
+        private readonly ILogger<StatementDownloadService> _logger;
+
+
         private BankParams[] bankParamsList;
-        public StatementDownloadService(IStatementRepository statementRepository)
+        public StatementDownloadService(IStatementRepository statementRepository, ILogger<StatementDownloadService> logger)
         {
             _statementRepository = statementRepository;
+            _logger = logger;
         }
 
         public void StartDownloadTimer(BankParams[] bankParams)
@@ -40,9 +45,12 @@ namespace BankAccountAPI.Services
                 var existingStatements = _statementRepository.GetStatements();
                 var newStatements = potentiallyNewStatements.Where(pns => !existingStatements.Contains(pns));
                 _statementRepository.StoreStatements(newStatements);
+
+                var countNewStatements = newStatements.Count();
+                _logger.LogInformation("Stored {countNewStatements} new statements in the database.", countNewStatements);
             } 
             catch(Exception e){
-                Console.WriteLine("Fehler beim Download der Statements: " + e.Message);
+                _logger.LogError(e, e.Message);
             }
         }
 

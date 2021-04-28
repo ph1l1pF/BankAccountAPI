@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using BankAccountAPI.Services;
+using Microsoft.Extensions.Logging;
 
 namespace BankAccountAPI
 {
@@ -31,9 +31,12 @@ namespace BankAccountAPI
     {
 
         private readonly IStatementRepository _statementRepository;
-        public StatementService(IStatementRepository statementRepository)
+        private readonly ILogger<StatementDownloadService> _logger;
+
+        public StatementService(IStatementRepository statementRepository, ILogger<StatementDownloadService> logger)
         {
             _statementRepository = statementRepository;
+            _logger = logger;
         }
 
         public IEnumerable<Statement> GetStatements(DateTime startDate, DateTime endDate, string bankIds)
@@ -41,6 +44,10 @@ namespace BankAccountAPI
             var bankIdsList = bankIds.Split(",");
             var allStatements = _statementRepository.GetStatements();
             var desiredStatements = allStatements.Where(s => startDate <= s.Date && s.Date<=endDate && bankIdsList.Contains(s.BankId));
+            
+            var countStatements = desiredStatements.Count();
+            _logger.LogInformation("Returning {countStatements} statements for {startDate} to {endDate}", countStatements, startDate, endDate);
+            
             return desiredStatements.OrderBy(s => s.Date);
         }
 
