@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAccountAPI", "BankAccountAPI\BankAccountAPI.csproj", "{35CF0242-5298-4648-BB40-904A9D427526}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAccountAPITests", "BankAccountAPITests\BankAccountAPITests.csproj", "{23135201-815E-40D1-86D3-0501684EBD2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{35CF0242-5298-4648-BB40-904A9D427526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CF0242-5298-4648-BB40-904A9D427526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CF0242-5298-4648-BB40-904A9D427526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23135201-815E-40D1-86D3-0501684EBD2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23135201-815E-40D1-86D3-0501684EBD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23135201-815E-40D1-86D3-0501684EBD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23135201-815E-40D1-86D3-0501684EBD2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

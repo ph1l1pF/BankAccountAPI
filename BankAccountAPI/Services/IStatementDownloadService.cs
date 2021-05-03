@@ -1,4 +1,6 @@
 
+using BankAccountAPI.Models;
+
 namespace BankAccountAPI.Services
 {
     public interface IStatementDownloadService
