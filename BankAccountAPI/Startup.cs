@@ -43,6 +43,7 @@ namespace BankAccountAPI
             services.AddScoped<IStatementService, StatementService>();
             services.AddScoped<IStatementRepository, StatementRepository>();
             services.AddScoped<IStatementDownloadService, StatementDownloadService>();
+            services.AddScoped<IFinTsExecutor, FinTsExecutor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
