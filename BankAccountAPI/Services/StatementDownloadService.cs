@@ -8,19 +8,14 @@ namespace BankAccountAPI.Services
     public class StatementDownloadService : IStatementDownloadService
     {
         
-
-
-        private readonly ILogger<StatementDownloadService> _logger;
         private readonly IStatementService _statementService;
         private readonly IStatementRepository _statementRepository;
 
 
         private BankParams[] bankParamsList;
-        public StatementDownloadService(ILogger<StatementDownloadService> logger,
-                                        IStatementService statementService, 
+        public StatementDownloadService(IStatementService statementService, 
                                         IStatementRepository statementRepository)
         {
-            _logger = logger;
             _statementService = statementService;
             _statementRepository = statementRepository;
         }
