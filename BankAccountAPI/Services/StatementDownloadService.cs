@@ -29,7 +29,6 @@ namespace BankAccountAPI.Services
         private void DownloadLatestStatements(Object o)
         {
             var latestStatements =_statementService.DownloadLatestStatements(bankParamsList);
-            _statementRepository.StoreStatements(latestStatements);
         }
         
         
