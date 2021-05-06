@@ -46,7 +46,7 @@ namespace BankAccountAPI
 
                 var existingStatements = _statementRepository.GetStatements();
                 var newStatements = potentiallyNewStatements.Where(pns => !existingStatements.Contains(pns));
-                _statementRepository.StoreStatements(newStatements);
+                _statementRepository.StoreStatements(newStatements.OrderBy(s => s.Date));
 
                 var countNewStatements = newStatements.Count();
                 _logger?.LogInformation("Stored {countNewStatements} new statements in the database.", countNewStatements);
