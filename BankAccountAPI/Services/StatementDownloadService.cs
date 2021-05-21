@@ -10,6 +10,8 @@ namespace BankAccountAPI.Services
         
         private readonly IStatementService _statementService;
 
+        private Timer _timer;
+
 
         private BankParams[] bankParamsList;
         public StatementDownloadService(IStatementService statementService)
@@ -20,7 +22,7 @@ namespace BankAccountAPI.Services
         public void StartDownloadTimer(BankParams[] bankParams)
         {
             this.bankParamsList = bankParams;
-            new Timer(DownloadLatestStatements, null, 0, 15000);
+            _timer = new Timer(DownloadLatestStatements, null, 0, 100000);
         }
 
         private void DownloadLatestStatements(Object o)
