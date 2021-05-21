@@ -20,7 +20,7 @@ namespace BankAccountAPI.Services
         public void StartDownloadTimer(BankParams[] bankParams)
         {
             this.bankParamsList = bankParams;
-            new Timer(DownloadLatestStatements, null, 0, 100000);
+            new Timer(DownloadLatestStatements, null, 0, 15000);
         }
 
         private void DownloadLatestStatements(Object o)
