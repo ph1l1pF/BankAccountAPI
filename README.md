@@ -9,10 +9,6 @@ You can retreive your statements within a date range specified in your request.
 2. Run ``cd BankAccountAPI``
 3. Run ``docker-compose up -d --force-recreate --build``
 
-### Health Check
-
-Check if the API is running and is healthy by sending a get request to ``http://localhost:81/AccountStatement/HealthCheck``.
-
 ## Use API
 
 ### Start Collecting Bank Account Statements
@@ -45,5 +41,6 @@ Send a get request to:
 http://localhost:81/AccountStatement?startDate=2021-1-4&endDate=2021-4-3&bankIds=bankId1,bankId2
 ```
 
-where you specify your start and end date, respectively. The date format is ``yyyy-M-d``.
+where you specify your start and end date, respectively. The date format is ``yyyy-M-d``. ``endDate`` can also be empty/null. Then the current date will be chosen as the end date.
+
 Moreover, you specify the bank ids for which you want to retreive statements. Those must correspond to the ``bankId`` values from above.

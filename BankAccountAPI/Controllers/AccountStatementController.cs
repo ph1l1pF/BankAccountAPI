@@ -23,16 +23,22 @@ namespace BankAccountAPI.Controllers
         [HttpGet]
         public IEnumerable<Statement> Get(string startDate, string endDate, string bankIds)
         {
-            return _statementService.GetStatements(DateTime.Parse(startDate), DateTime.Parse(endDate), bankIds);
+            (var start, var end) = GetDatesOrThrow(startDate, endDate);
+            return _statementService.GetStatements(start, end, bankIds);
         }
 
-        [HttpGet]
-        [Route("HealthCheck")]
-        public string HealthCheck()
+        private static (DateTime, DateTime) GetDatesOrThrow(string startDateString, string endDateString) 
         {
-            return "healthy";
-        }
+            DateTime startDate;
+            if(!DateTime.TryParse(startDateString, out startDate)) throw new Exception();
 
+            // endDate can be null => Then take DateTime.Now
+            DateTime endDate = DateTime.Now;
+            if(!string.IsNullOrWhiteSpace(endDateString) && 
+                !DateTime.TryParse(endDateString, out endDate)) throw new Exception();
+            
+            return (startDate, endDate);
+        }
         
         [HttpPost]
         [Route("StartCollecting")]
