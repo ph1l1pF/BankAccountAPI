@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BankAccountAPI.Models;
 using BankAccountAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountAPI.Controllers
@@ -21,16 +22,21 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Statement> Get(string startDate, string endDate, string bankIds)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Statement>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Get(string startDate, string endDate, string bankIds)
         {
-            (var start, var end) = GetDatesOrThrow(startDate, endDate);
-            return _statementService.GetStatements(start, end, bankIds);
+            try {
+                (var start, var end) = GetDatesOrThrow(startDate, endDate);
+                return new OkObjectResult(_statementService.GetStatements(start, end, bankIds));
+            } catch (Exception) {
+                return new BadRequestResult();
+            }
         }
 
         private static (DateTime, DateTime) GetDatesOrThrow(string startDateString, string endDateString) 
         {
-            DateTime startDate;
-            if(!DateTime.TryParse(startDateString, out startDate)) throw new Exception();
+            if(!DateTime.TryParse(startDateString, out var startDate)) throw new Exception();
 
             // endDate can be null => Then take DateTime.Now
             DateTime endDate = DateTime.Now;
@@ -41,16 +47,18 @@ namespace BankAccountAPI.Controllers
         }
         
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("StartCollecting")]
-        public string StartCollecting([FromBody] BankParams[] bankParams)
+        public IActionResult StartCollecting([FromBody] BankParams[] bankParams)
         {
             if (!isCollecting)
             {
                 isCollecting = true;
                 _statementsDownloadService.StartDownloadTimer(bankParams);
-                return "Started collecting.";
+                return new OkObjectResult("Started collecting statements.");
             }
-            return "Already collecting.";
+            return new BadRequestResult();
         }
 
         [HttpGet]
